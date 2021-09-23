@@ -1,0 +1,56 @@
+BoxLayout:
+    orientation: 'vertical'
+    id: main_box
+    Popup:
+        id: popup
+        size_hint: (.7, .7)
+        title: "Add new animal"
+        on_parent:
+            if self.parent == main_box: self.parent.remove_widget(self)
+        BoxLayout:
+            orientation: 'vertical'
+            id: fields
+            BoxLayout:
+                orientation: 'horizontal'
+                Label:
+                    text: "Name: "
+                TextInput:
+                    id: name
+                    value: ''
+                    multiline: False
+                    write_tab: False
+            BoxLayout:
+                orientation: 'horizontal'
+                Label:
+                    text: "Breed: "
+                TextInput:
+                    id: breed
+                    value: ''
+                    multiline: False
+                    write_tab: False
+            Button:
+                text: "Add"
+                on_release: app.on_save(name.text, breed.text)
+            Button:
+                text: "Cancel"
+                on_release: popup.dismiss()
+    BoxLayout:
+        id: entries_box
+        orientation: 'vertical'
+    BoxLayout:
+        orientation: 'horizontal'
+        size_hint_y: 0.2
+        Spinner:
+            id: choose_ordering
+            text: 'Sort by Name'
+            values: ('Sort by Name', 'Sort by Breed')
+            on_text: app.sort_animals(self.text)
+        Button:
+            text: 'Add Animal'
+            on_release: popup.open()
+#        Button:
+#            id: organise_by_name
+#            text: 'Organise by name'
+#        Button:
+#            id: organise_by_breed
+#            text: 'Organise by breed'
